@@ -32,7 +32,7 @@ export function TaskProvider({ children }) {
   if (!syncEnabled) return;
 
   try {
-    await fetch(`http://localhost:4000/tasks/${id}`, {
+    await fetch(`https://task-manager-backend-e6f7.onrender.com/tasks/${id}`, {
       method: 'DELETE'
     });
   } catch (error) {
@@ -48,7 +48,7 @@ export function TaskProvider({ children }) {
   // Optional: sync with backend if toggle is enabled
   const syncFromBackend = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:4000/tasks');
+      const res = await axios.get('https://task-manager-backend-e6f7.onrender.com/tasks');
       setTasks(res.data);
     } catch (e) {
       console.warn('Could not sync from backend:', e.message);
@@ -58,22 +58,22 @@ export function TaskProvider({ children }) {
   const syncToBackend = useCallback(async () => {
     try {
       // naive approach: delete all and re-create — simple but acceptable for small assignment
-      const res = await axios.get('http://localhost:4000/tasks');
+      const res = await axios.get('https://task-manager-backend-e6f7.onrender.com/tasks');
       const remote = res.data;
       // create map of remote
       const remoteMap = new Map(remote.map(t => [t.id, t]));
       // create/patch remote
       for (const t of tasks) {
         if (remoteMap.has(t.id)) {
-          await axios.put(`http://localhost:4000/tasks/${t.id}`, t).catch(() => {});
+          await axios.put(`https://task-manager-backend-e6f7.onrender.com/tasks/${t.id}`, t).catch(() => {});
         } else {
-          await axios.post('http://localhost:4000/tasks', t).catch(() => {});
+          await axios.post('https://task-manager-backend-e6f7.onrender.com/tasks', t).catch(() => {});
         }
       }
       // delete remote ones not in local
       for (const r of remote) {
         if (!tasks.find(t => t.id === r.id)) {
-          await axios.delete(`http://localhost:4000/tasks/${r.id}`).catch(() => {});
+          await axios.delete(`https://task-manager-backend-e6f7.onrender.com/tasks/${r.id}`).catch(() => {});
         }
       }
     } catch (e) {
