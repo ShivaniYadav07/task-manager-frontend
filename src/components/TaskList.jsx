@@ -43,13 +43,15 @@ export default function TaskList() {
 
   return (
     <div className="task-list">
+      {filtered.length > 1 && (
         <div className="drag-helper">
-  <span className="hand">👇</span>
-  <div>
-    <b>Drag & Reorder</b>
-    <p>Hold a task and move it up or down to change priority</p>
-  </div>
-</div>
+          <span className="hand">👇</span>
+          <div>
+            <b>Drag & Reorder</b>
+            <p>Hold a task and move it up or down to change priority</p>
+          </div>
+        </div>
+      )}
 
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="tasks">
