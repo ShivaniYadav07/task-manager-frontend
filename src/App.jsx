@@ -11,9 +11,12 @@ export default function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Advanced Task Manager</h1>
-        <ThemeToggle />
-      </header>
+  <div className="brand">
+    <h4>Advanced Task Manager</h4>
+  </div>
+  <ThemeToggle />
+</header>
+
 
       <main className="container">
         <AddTaskForm />

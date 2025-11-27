@@ -73,7 +73,7 @@ export function TaskProvider({ children }) {
       // delete remote ones not in local
       for (const r of remote) {
         if (!tasks.find(t => t.id === r.id)) {
-          await axios.delete(`https://task-manager-backend-e6f7.onrender.com/tasks/${r.id}`).catch(() => {});
+          await axios.delete(`http://localhost:4000/tasks/${r.id}`).catch(() => {});
         }
       }
     } catch (e) {
